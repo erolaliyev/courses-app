@@ -1,0 +1,65 @@
+.title-details {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0;
+	padding: 1rem;
+}
+
+.title-details button {
+	height: 1.5rem;
+}
+
+.description-details {
+	margin: 0;
+	padding: 1rem;
+}
+
+.author-details {
+	// border: 1px solid green;
+	display: flex;
+	justify-content: space-between;
+	margin: 0;
+	padding: 1rem;
+}
+
+.author-details h3 {
+	width: 50%;
+	margin: 1rem 25%;
+	text-align: center;
+}
+
+.new-author {
+	// border: 1px solid blue;
+	width: 40%;
+}
+
+.create-author {
+	// border: 1px solid lavender;
+	display: flex;
+	justify-content: space-between;
+	width: 50%;
+}
+
+.existing-author {
+	// border: 1px solid orange;
+	width: 40%;
+}
+
+.author-name {
+	// border: 1px solid magenta;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin: 0;
+	padding: 1rem;
+}
+
+.author-name button {
+	height: 1.5rem;
+}
+
+.course-author p {
+	// border: 1px solid lawngreen;
+	text-align: center;
+}

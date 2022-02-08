@@ -1,0 +1,21 @@
+.header {
+	// border: 1px solid red;
+	display: flex;
+	height: 6rem;
+	justify-content: space-between;
+	padding: 1rem;
+	margin: 0;
+}
+
+.header-user {
+	// border: 1px solid black;
+	display: flex;
+	height: 2rem;
+	padding: 1rem;
+	margin: 0;
+}
+
+.header-userName {
+	// border: 1px solid pink;
+	margin: 0 1rem 0 0;
+}
