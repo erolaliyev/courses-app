@@ -50,9 +50,13 @@ const Registration = () => {
 	return (
 		<div>
 			<h1>Registration</h1>
-			<form action='' onSubmit={handleSubmit}>
+			<form
+				action='http://localhost:3001/registration'
+				method='post'
+				onSubmit={handleSubmit}
+			>
 				<div>
-					<label htmlFor=''>Name:</label>
+					<label htmlFor='name'>Name:</label>
 					<Input
 						name='name'
 						type='text'
@@ -62,7 +66,7 @@ const Registration = () => {
 					/>
 				</div>
 				<div>
-					<label htmlFor=''>Email</label>
+					<label htmlFor='email'>Email</label>
 					<Input
 						name='email'
 						type='email'
@@ -72,7 +76,7 @@ const Registration = () => {
 					/>
 				</div>
 				<div>
-					<label htmlFor=''>Password</label>
+					<label htmlFor='password'>Password</label>
 					<Input
 						name='password'
 						type='password'
