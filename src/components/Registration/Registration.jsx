@@ -35,8 +35,11 @@ const Registration = () => {
 				const data = await response.json();
 				if (data.successful) {
 					navigate('/login');
+					console.log(inputs);
 					return;
 				} else {
+					console.log(typeof inputs.email);
+					console.log(inputs);
 					const errorMessage = `An error has occured: ${data.errors[0]}`;
 					throw new Error(errorMessage);
 				}
@@ -48,7 +51,7 @@ const Registration = () => {
 	};
 
 	return (
-		<div>
+		<div className='registration'>
 			<h1>Registration</h1>
 			<form
 				action='http://localhost:3001/registration'
@@ -92,7 +95,7 @@ const Registration = () => {
 				/>
 			</form>
 			<p>
-				If you have an account you can <Link to='/Login'>Login</Link>
+				If you have an account you can login <Link to='/login'>here</Link>
 			</p>
 		</div>
 	);

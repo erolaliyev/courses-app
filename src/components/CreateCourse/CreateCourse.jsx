@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import Input from '../../common/Input/Input';
@@ -6,7 +7,7 @@ import Button from '../../common/Button/Button';
 
 import { mockedAuthorsList, mockedCoursesList } from '../../constants';
 
-const CreateCourse = ({ onClick }) => {
+const CreateCourse = () => {
 	const [courseTitle, setCourseTitle] = useState('');
 	const [courseDescription, setCourseDescription] = useState('');
 	const [authorsList, setAuthorsList] = useState(
@@ -15,6 +16,8 @@ const CreateCourse = ({ onClick }) => {
 	const [courseAuthorsList, setCourseAuthorsList] = useState([]);
 	const [customAuthor, setcustomAuthor] = useState('');
 	const [courseDuration, setCourseDuration] = useState('');
+
+	let navigate = useNavigate();
 
 	const handleTitleChange = (event) => {
 		setCourseTitle(event.target.value);
@@ -122,7 +125,7 @@ const CreateCourse = ({ onClick }) => {
 					.filter((author) => courseAuthorsList.includes(author.name))
 					.map((author) => author.id),
 			});
-			onClick();
+			navigate('/courses');
 		}
 	};
 
