@@ -29,6 +29,7 @@ const SearchBar = ({ filterCourseList }) => {
 	return (
 		<div className='searchBar'>
 			<Input
+				name='searchInput'
 				type='text'
 				placeholder='Enter course name...'
 				value={searchInput}

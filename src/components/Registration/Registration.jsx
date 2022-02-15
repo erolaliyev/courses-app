@@ -1,0 +1,97 @@
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import Input from '../../common/Input/Input';
+import Button from '../../common/Button/Button';
+
+const Registration = () => {
+	const [inputs, setInputs] = useState({});
+
+	const handleChange = (e) =>
+		setInputs((prevState) => ({
+			...prevState,
+			[e.target.name]: e.target.value,
+		}));
+
+	let navigate = useNavigate();
+
+	const handleSubmit = (e) => {
+		console.log('Clicked on submit');
+		e.preventDefault();
+		try {
+			const registerUser = async () => {
+				const requestOptions = {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(inputs),
+				};
+				console.log('inside registerUser');
+				const response = await fetch(
+					'http://localhost:3000/register',
+					requestOptions
+				);
+				const data = await response.json();
+				if (data.successful) {
+					navigate('/login');
+					return;
+				} else {
+					const errorMessage = `An error has occured: ${data.errors[0]}`;
+					throw new Error(errorMessage);
+				}
+			};
+			registerUser();
+		} catch (error) {
+			console.error('There was an error!', error);
+		}
+	};
+
+	return (
+		<div>
+			<h1>Registration</h1>
+			<form action='' onSubmit={handleSubmit}>
+				<div>
+					<label htmlFor=''>Name:</label>
+					<Input
+						name='name'
+						type='text'
+						placeholder='Enter name'
+						value={inputs.name || ''}
+						onChange={handleChange}
+					/>
+				</div>
+				<div>
+					<label htmlFor=''>Email</label>
+					<Input
+						name='email'
+						type='email'
+						placeholder='Enter email'
+						value={inputs.email || ''}
+						onChange={handleChange}
+					/>
+				</div>
+				<div>
+					<label htmlFor=''>Password</label>
+					<Input
+						name='password'
+						type='password'
+						placeholder='Enter password'
+						value={inputs.password || ''}
+						onChange={handleChange}
+					/>
+				</div>
+				<Button
+					type='submit'
+					buttonText='Registration'
+					onClick={handleSubmit}
+				/>
+			</form>
+			<p>
+				If you have an account you can <Link to='/Login'>Login</Link>
+			</p>
+		</div>
+	);
+};
+
+export default Registration;

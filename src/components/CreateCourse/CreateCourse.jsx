@@ -132,6 +132,7 @@ const CreateCourse = ({ onClick }) => {
 				<div>
 					<p>Title</p>
 					<Input
+						name='courseTitle'
 						type='text'
 						placeholder='Enter title...'
 						minLength='2'
@@ -161,6 +162,7 @@ const CreateCourse = ({ onClick }) => {
 					<p>Author name</p>
 					<div className='create-author'>
 						<Input
+							name='newCreatedAuthor'
 							type='text'
 							placeholder='Enter author name...'
 							value={customAuthor}
@@ -172,6 +174,7 @@ const CreateCourse = ({ onClick }) => {
 					<h3>Duration</h3>
 					<p>Duration</p>
 					<Input
+						name='courseDuration'
 						type='text'
 						placeholder='Enter duration in minutes...'
 						value={courseDuration}
