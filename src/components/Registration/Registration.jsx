@@ -16,7 +16,6 @@ const Registration = () => {
 	let navigate = useNavigate();
 
 	const handleSubmit = (e) => {
-		console.log('Clicked on submit');
 		e.preventDefault();
 		try {
 			const registerUser = async () => {
@@ -27,7 +26,6 @@ const Registration = () => {
 					},
 					body: JSON.stringify(inputs),
 				};
-				console.log('inside registerUser');
 				const response = await fetch(
 					'http://localhost:3000/register',
 					requestOptions
@@ -35,11 +33,9 @@ const Registration = () => {
 				const data = await response.json();
 				if (data.successful) {
 					navigate('/login');
-					console.log(inputs);
+					localStorage.setItem('username', inputs.name);
 					return;
 				} else {
-					console.log(typeof inputs.email);
-					console.log(inputs);
 					const errorMessage = `An error has occured: ${data.errors[0]}`;
 					throw new Error(errorMessage);
 				}

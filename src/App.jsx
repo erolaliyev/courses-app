@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.scss';
@@ -11,29 +11,22 @@ import CourseInfo from './components/CourseInfo/CourseInfo';
 import CreateCourse from './components/CreateCourse/CreateCourse';
 
 const App = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-	const handleClick = () => {
-		setIsLoggedIn(!isLoggedIn);
-		console.log(isLoggedIn);
-	};
-
 	return (
 		<BrowserRouter>
-			<Header isLoggedIn={isLoggedIn} onClick={handleClick} />
+			<Header />
 			<Routes>
 				<Route
 					path='/'
 					element={
-						localStorage.getItem('loginToken') === null ? (
+						localStorage.getItem('loginToken') !== null ? (
 							<Courses />
 						) : (
-							<Login onClick={handleClick} />
+							<Login />
 						)
 					}
 				/>
 				<Route path='/registration' element={<Registration />} />
-				<Route path='/login' element={<Login onClick={handleClick} />} />
+				<Route path='/login' element={<Login />} />
 				<Route path='/courses' element={<Courses />} />
 				<Route path='/courses/:courseId' element={<CourseInfo />} />
 				<Route path='/courses/add' element={<CreateCourse />} />

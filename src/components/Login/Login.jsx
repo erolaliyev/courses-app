@@ -4,7 +4,7 @@ import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({ onClick }) => {
+const Login = () => {
 	const [inputs, setInputs] = useState({});
 
 	const handleChange = (e) =>
@@ -17,7 +17,6 @@ const Login = ({ onClick }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('Clicked on button');
 		try {
 			const loginUser = async () => {
 				const requestOptions = {
@@ -27,17 +26,14 @@ const Login = ({ onClick }) => {
 					},
 					body: JSON.stringify(inputs),
 				};
-				console.log('inside loginUser');
 				const response = await fetch(
 					'http://localhost:3000/login',
 					requestOptions
 				);
 				const data = await response.json();
 				if (data.successful) {
-					navigate('/courses');
-					onClick();
-					console.log(data.result);
 					localStorage.setItem('loginToken', data.result);
+					navigate('/courses');
 					return;
 				} else {
 					const errorMessage = `An error has occured: ${data.errors[0]}`;

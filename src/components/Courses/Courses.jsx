@@ -6,7 +6,6 @@ import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
 
 import { mockedCoursesList, mockedAuthorsList } from '../../constants';
-import CreateCourse from '../CreateCourse/CreateCourse';
 
 const Courses = () => {
 	const [filteredCourses, setFilteredCourses] = useState(mockedCoursesList);
