@@ -1,30 +1,32 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Logo from './components/Logo/Logo';
 import Button from '../../common/Button/Button';
 
-const Header = ({ isLoggedIn, onClick }) => {
-	// const [isLoggedIn, setIsLoggedIn] = useState(true);
-
+const Header = () => {
 	let navigate = useNavigate();
+	let location = useLocation();
 
 	const handleClick = () => {
-		if (isLoggedIn) {
-			navigate('/login');
-			localStorage.removeItem('loginToken');
-		}
-		onClick();
+		navigate('/login');
+		localStorage.removeItem('loginToken');
 	};
 
-	if (isLoggedIn) {
+	if (
+		localStorage.getItem('loginToken') &&
+		location.pathname !== '/Login' &&
+		location.pathname !== '/registration'
+	) {
 		return (
 			<div className='header'>
 				<Logo />
 				<div className='header-user'>
-					{/* {isLoggedIn && <span>Erol</span>}
-					{isLoggedIn && <Button buttonText='Log out' onClick={handleClick} />} */}
-					<span>Erol</span>
+					<span>
+						{localStorage.getItem('username')
+							? localStorage.getItem('username')
+							: ''}
+					</span>
 					<Button buttonText='Log out' onClick={handleClick} />
 				</div>
 			</div>
