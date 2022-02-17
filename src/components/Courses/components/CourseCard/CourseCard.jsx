@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Button from '../../../../common/Button/Button';
 
 const CourseCard = ({
@@ -33,6 +35,14 @@ const CourseCard = ({
 			</div>
 		</div>
 	);
+};
+
+CourseCard.propTypes = {
+	title: PropTypes.string.isRequired,
+	description: PropTypes.string.isRequired,
+	authors: PropTypes.array.isRequired,
+	duration: PropTypes.number.isRequired,
+	creationDate: PropTypes.string.isRequired,
 };
 
 export default CourseCard;
