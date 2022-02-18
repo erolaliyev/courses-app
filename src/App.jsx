@@ -1,13 +1,37 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import './App.scss';
+
 import Header from './components/Header/Header';
 import Courses from './components/Courses/Courses';
-import './App.scss';
+import Registration from './components/Registration/Registration';
+import Login from './components/Login/Login';
+import CourseInfo from './components/CourseInfo/CourseInfo';
+import CreateCourse from './components/CreateCourse/CreateCourse';
 
 const App = () => {
 	return (
-		<div>
+		<BrowserRouter>
 			<Header />
-			<Courses />
-		</div>
+			<Routes>
+				<Route
+					path='/'
+					element={
+						localStorage.getItem('loginToken') !== null ? (
+							<Courses />
+						) : (
+							<Login />
+						)
+					}
+				/>
+				<Route path='/registration' element={<Registration />} />
+				<Route path='/login' element={<Login />} />
+				<Route path='/courses' element={<Courses />} />
+				<Route path='/courses/:courseId' element={<CourseInfo />} />
+				<Route path='/courses/add' element={<CreateCourse />} />
+			</Routes>
+		</BrowserRouter>
 	);
 };
 
