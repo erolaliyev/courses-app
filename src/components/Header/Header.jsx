@@ -2,6 +2,8 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import { LOG_OUT } from '../../store/user/actionCreators';
+
 import Logo from './components/Logo/Logo';
 import Button from '../../common/Button/Button';
 
@@ -12,7 +14,7 @@ const Header = () => {
 	let location = useLocation();
 
 	const handleClick = () => {
-		dispatch({ type: 'LOG_OUT' });
+		dispatch(LOG_OUT());
 		navigate('/login');
 		localStorage.removeItem('loginToken');
 	};

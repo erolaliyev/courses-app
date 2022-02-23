@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import { LOG_IN } from '../../store/user/actionCreators';
+
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
@@ -36,7 +38,7 @@ const Login = () => {
 				const data = await response.json();
 				if (data.successful) {
 					localStorage.setItem('loginToken', data.result);
-					dispatch({ type: 'LOG_IN', payload: { email: inputs.email } });
+					dispatch(LOG_IN({ email: inputs.email }));
 					navigate('/courses');
 					return;
 				} else {

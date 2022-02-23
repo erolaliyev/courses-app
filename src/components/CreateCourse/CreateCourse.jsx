@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { ADD_COURSE } from '../../store/courses/actionCreators';
+import { ADD_AUTHOR } from '../../store/authors/actionCreators';
+
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
@@ -65,7 +68,7 @@ const CreateCourse = () => {
 				name: customAuthor,
 			});
 			setcustomAuthor('');
-			dispatch({ type: 'ADD_AUTHOR', payload: { customAuthor } });
+			dispatch(ADD_AUTHOR({ name: customAuthor }));
 		}
 	};
 
@@ -130,9 +133,9 @@ const CreateCourse = () => {
 					.filter((author) => courseAuthorsList.includes(author.name))
 					.map((author) => author.id),
 			});
-			dispatch({
-				type: 'ADD_COURSE',
-				payload: {
+
+			dispatch(
+				ADD_COURSE({
 					title: courseTitle,
 					description: courseDescription,
 					creationDate:
@@ -145,8 +148,8 @@ const CreateCourse = () => {
 					authors: authors
 						.filter((author) => courseAuthorsList.includes(author.name))
 						.map((author) => author.id),
-				},
-			});
+				})
+			);
 			navigate('/courses');
 		}
 	};
