@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
@@ -8,10 +9,13 @@ import Button from '../../common/Button/Button';
 import { mockedAuthorsList, mockedCoursesList } from '../../constants';
 
 const CreateCourse = () => {
+	const dispatch = useDispatch();
+	const authors = useSelector((state) => state.authors);
+	// console.log(authors);
 	const [courseTitle, setCourseTitle] = useState('');
 	const [courseDescription, setCourseDescription] = useState('');
 	const [authorsList, setAuthorsList] = useState(
-		mockedAuthorsList.map((author) => author.name)
+		authors.map((author) => author.name)
 	);
 	const [courseAuthorsList, setCourseAuthorsList] = useState([]);
 	const [customAuthor, setcustomAuthor] = useState('');
@@ -61,6 +65,7 @@ const CreateCourse = () => {
 				name: customAuthor,
 			});
 			setcustomAuthor('');
+			dispatch({ type: 'ADD_AUTHOR', payload: { customAuthor } });
 		}
 	};
 
@@ -121,9 +126,26 @@ const CreateCourse = () => {
 					'/' +
 					new Date().getFullYear(),
 				duration: +courseDuration,
-				authors: mockedAuthorsList
+				authors: authors
 					.filter((author) => courseAuthorsList.includes(author.name))
 					.map((author) => author.id),
+			});
+			dispatch({
+				type: 'ADD_COURSE',
+				payload: {
+					title: courseTitle,
+					description: courseDescription,
+					creationDate:
+						new Date().getDate() +
+						'/' +
+						(new Date().getMonth() + 1) +
+						'/' +
+						new Date().getFullYear(),
+					duration: +courseDuration,
+					authors: authors
+						.filter((author) => courseAuthorsList.includes(author.name))
+						.map((author) => author.id),
+				},
 			});
 			navigate('/courses');
 		}

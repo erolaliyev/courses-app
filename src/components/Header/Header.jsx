@@ -1,14 +1,18 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import Logo from './components/Logo/Logo';
 import Button from '../../common/Button/Button';
 
 const Header = () => {
+	const dispatch = useDispatch();
+
 	let navigate = useNavigate();
 	let location = useLocation();
 
 	const handleClick = () => {
+		dispatch({ type: 'LOG_OUT' });
 		navigate('/login');
 		localStorage.removeItem('loginToken');
 	};
