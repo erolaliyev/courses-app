@@ -10,13 +10,10 @@ import SearchBar from './components/SearchBar/SearchBar';
 import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
 
-import { mockedAuthorsList } from '../../constants';
-
 import { getCoursesList, getAuthorsList } from '../../services';
 
 const Courses = () => {
 	const dispatch = useDispatch();
-	// console.log(dispatch);
 
 	const [filteredCourses, setFilteredCourses] = useState([]);
 	const filterCourseList = (updatedCourseList) => {
@@ -25,10 +22,7 @@ const Courses = () => {
 
 	const courses = useSelector((state) => state.courses);
 	const authors = useSelector((state) => state.authors);
-	// console.log(`a`);
-	// console.log(courses);
 	useEffect(() => {
-		// console.log('here');
 		getCoursesList().then((result) => {
 			if (store.getState().courses.length === 0) {
 				result.map((course) => dispatch(ADD_COURSE(course)));
@@ -37,14 +31,12 @@ const Courses = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		// if(store.getState().courses.len)
 		getAuthorsList().then((result) => {
 			if (store.getState().authors.length === 0) {
 				result.map((author) => dispatch(ADD_AUTHOR(author)));
 			}
 		});
 	}, [dispatch]);
-	// console.log(store.getState().authors);
 	return (
 		<div>
 			<div className='courses-searchbar'>

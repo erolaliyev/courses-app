@@ -16,7 +16,6 @@ export default function reducer(state = [], action) {
 			},
 		];
 	} else if (action.type === actions.REMOVE_COURSE) {
-		console.log(action.payload.id);
 		return state.filter((course) => course.id !== action.payload.id);
 	} else {
 		return state;

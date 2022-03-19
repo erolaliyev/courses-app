@@ -16,7 +16,6 @@ const CourseCard = ({
 }) => {
 	const dispatch = useDispatch();
 	const handleDelete = () => {
-		console.log(`dispatch remove_course`);
 		dispatch(REMOVE_COURSE({ id }));
 	};
 

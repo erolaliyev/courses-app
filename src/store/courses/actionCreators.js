@@ -8,7 +8,6 @@ export function ADD_COURSE(description) {
 }
 
 export function REMOVE_COURSE(description) {
-	console.log('actioncreator here remove one');
 	return {
 		type: actions.REMOVE_COURSE,
 		payload: description,

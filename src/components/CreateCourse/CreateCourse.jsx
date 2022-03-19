@@ -14,7 +14,6 @@ import { mockedAuthorsList, mockedCoursesList } from '../../constants';
 const CreateCourse = () => {
 	const dispatch = useDispatch();
 	const authors = useSelector((state) => state.authors);
-	// console.log(authors);
 	const [courseTitle, setCourseTitle] = useState('');
 	const [courseDescription, setCourseDescription] = useState('');
 	const [authorsList, setAuthorsList] = useState(
