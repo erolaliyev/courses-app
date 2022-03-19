@@ -17,6 +17,7 @@ const Header = () => {
 		dispatch(LOG_OUT());
 		navigate('/login');
 		localStorage.removeItem('loginToken');
+		localStorage.removeItem('username');
 	};
 
 	if (
