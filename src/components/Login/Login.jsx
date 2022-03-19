@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { LOG_IN } from '../../store/user/actionCreators';
 
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
-import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+	const dispatch = useDispatch();
+
 	const [inputs, setInputs] = useState({});
 
 	const handleChange = (e) =>
@@ -33,6 +38,7 @@ const Login = () => {
 				const data = await response.json();
 				if (data.successful) {
 					localStorage.setItem('loginToken', data.result);
+					dispatch(LOG_IN({ email: inputs.email }));
 					navigate('/courses');
 					return;
 				} else {

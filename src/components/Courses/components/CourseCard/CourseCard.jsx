@@ -1,15 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+
+import { REMOVE_COURSE } from '../../../../store/courses/actionCreators';
 
 import Button from '../../../../common/Button/Button';
 
 const CourseCard = ({
+	id,
 	title,
 	description,
 	authors,
 	duration,
 	creationDate,
 }) => {
+	const dispatch = useDispatch();
+	const handleDelete = () => {
+		console.log(`dispatch remove_course`);
+		dispatch(REMOVE_COURSE({ id }));
+	};
+
 	return (
 		<div className='course-card'>
 			<div className='main-info'>
@@ -31,13 +41,18 @@ const CourseCard = ({
 					<span className='text-info'>Created:</span>{' '}
 					{creationDate && creationDate.replaceAll('/', '.')}
 				</p>
-				<Button buttonText='Show course' />
+				<div className='buttons'>
+					<Button buttonText='Show course' />
+					<Button buttonText='Update' />
+					<Button buttonText='Delete' onClick={handleDelete} />
+				</div>
 			</div>
 		</div>
 	);
 };
 
 CourseCard.propTypes = {
+	id: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
 	description: PropTypes.string.isRequired,
 	authors: PropTypes.array.isRequired,
