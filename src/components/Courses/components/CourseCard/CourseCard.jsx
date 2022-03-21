@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-
-import { REMOVE_COURSE } from '../../../../store/courses/actionCreators';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../../common/Button/Button';
+import { removeCourse } from '../../../../store/courses/thunk';
+import { getRole } from '../../../../selectors';
 
 const CourseCard = ({
 	id,
@@ -15,8 +16,37 @@ const CourseCard = ({
 	creationDate,
 }) => {
 	const dispatch = useDispatch();
+	let navigate = useNavigate();
+	const userRole = useSelector(getRole);
+
+	const handleUpdate = () => {
+		navigate('/courses/update/' + id);
+	};
+
 	const handleDelete = () => {
-		dispatch(REMOVE_COURSE({ id }));
+		dispatch(removeCourse(id));
+	};
+
+	const handleShowCourse = () => {
+		navigate('/courses/' + id);
+	};
+
+	const calculateHours = () => {
+		const hour = Math.trunc(duration / 60);
+		if (hour < 10) {
+			return ' 0' + hour;
+		} else {
+			return ' ' + hour;
+		}
+	};
+
+	const calculateMinutes = () => {
+		const minute = duration % 60;
+		if (minute < 10) {
+			return '0' + minute + ' ';
+		} else {
+			return minute + ' ';
+		}
 	};
 
 	return (
@@ -32,18 +62,21 @@ const CourseCard = ({
 				</p>
 				<p>
 					<span className='text-info'>Duration:</span>
-					{` ${Math.trunc(duration / 60)}:${
-						duration % 60 === 0 ? '00' : duration % 60
-					} hours`}
+					{` ${calculateHours()}:${calculateMinutes()} hours`}
 				</p>
 				<p>
 					<span className='text-info'>Created:</span>{' '}
 					{creationDate && creationDate.replaceAll('/', '.')}
 				</p>
 				<div className='buttons'>
-					<Button buttonText='Show course' />
-					<Button buttonText='Update' />
-					<Button buttonText='Delete' onClick={handleDelete} />
+					<Button buttonText='Show course' onClick={handleShowCourse} />
+					{userRole === 'admin' && (
+						<Button buttonText='Update' onClick={handleUpdate} />
+					)}
+
+					{userRole === 'admin' && (
+						<Button buttonText='Delete' onClick={handleDelete} />
+					)}
 				</div>
 			</div>
 		</div>

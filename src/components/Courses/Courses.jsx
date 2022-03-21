@@ -11,17 +11,24 @@ import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
 
 import { getCoursesList, getAuthorsList } from '../../services';
+import { getUserRole } from '../../store/user/thunk';
+import { getAuthors, getCourses, getRole } from '../../selectors';
 
 const Courses = () => {
 	const dispatch = useDispatch();
 
+	// console.log(courses);
 	const [filteredCourses, setFilteredCourses] = useState([]);
+	// console.log(filteredCourses);
+
 	const filterCourseList = (updatedCourseList) => {
 		setFilteredCourses(updatedCourseList);
 	};
 
-	const courses = useSelector((state) => state.courses);
-	const authors = useSelector((state) => state.authors);
+	const courses = useSelector(getCourses);
+	const authors = useSelector(getAuthors);
+	const userRole = useSelector(getRole);
+
 	useEffect(() => {
 		getCoursesList().then((result) => {
 			if (store.getState().courses.length === 0) {
@@ -37,28 +44,35 @@ const Courses = () => {
 			}
 		});
 	}, [dispatch]);
+	useEffect(() => {
+		dispatch(getUserRole());
+	}, [dispatch]);
+
+	useEffect(() => setFilteredCourses(courses), [courses]);
+
 	return (
 		<div>
 			<div className='courses-searchbar'>
 				<SearchBar filterCourseList={filterCourseList} />
-				<Link to='/courses/add'>
-					<Button buttonText='Add new course' />
-				</Link>
+				{userRole === 'admin' && (
+					<Link to='/courses/add'>
+						<Button buttonText='Add new course' />
+					</Link>
+				)}
 			</div>
-			{courses &&
-				courses.map((course) => (
-					<CourseCard
-						key={course.id}
-						id={course.id}
-						title={course.title}
-						description={course.description}
-						authors={authors
-							.filter((author) => course.authors.includes(author.id))
-							.map((author) => author.name)}
-						duration={course.duration}
-						creationDate={course.creationDate}
-					/>
-				))}
+			{filteredCourses.map((course) => (
+				<CourseCard
+					key={course.id}
+					id={course.id}
+					title={course.title}
+					description={course.description}
+					authors={authors
+						.filter((author) => course.authors.includes(author.id))
+						.map((author) => author.name)}
+					duration={course.duration}
+					creationDate={course.creationDate}
+				/>
+			))}
 		</div>
 	);
 };

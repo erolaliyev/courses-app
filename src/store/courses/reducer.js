@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import * as actions from './actionTypes';
 
 export default function reducer(state = [], action) {
@@ -7,7 +5,7 @@ export default function reducer(state = [], action) {
 		return [
 			...state,
 			{
-				id: action.payload.id ?? uuidv4(),
+				id: action.payload.id,
 				title: action.payload.title,
 				description: action.payload.description,
 				creationDate: action.payload.creationDate,
@@ -17,6 +15,10 @@ export default function reducer(state = [], action) {
 		];
 	} else if (action.type === actions.REMOVE_COURSE) {
 		return state.filter((course) => course.id !== action.payload.id);
+	} else if (action.type === actions.UPDATE_COURSE) {
+		let removed = state.filter((course) => course.id !== action.payload.id);
+		removed.push(action.payload);
+		return removed;
 	} else {
 		return state;
 	}

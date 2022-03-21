@@ -1,19 +1,38 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Button from '../../common/Button/Button';
-
-import { mockedCoursesList, mockedAuthorsList } from '../../constants';
+import { getAuthors, getCourses } from '../../selectors';
 
 const CourseInfo = () => {
 	let { courseId } = useParams();
+	const courses = useSelector(getCourses);
+	const courseAuthors = useSelector(getAuthors);
 
-	const selectedCourse = mockedCoursesList.find(
-		(course) => course.id === courseId
-	);
+	const selectedCourse = courses.find((course) => course.id === courseId);
+	console.log(selectedCourse);
 
 	let { id, title, description, creationDate, duration, authors } =
 		selectedCourse;
+
+	const calculateHours = () => {
+		const hour = Math.trunc(duration / 60);
+		if (hour < 10) {
+			return ' 0' + hour;
+		} else {
+			return ' ' + hour;
+		}
+	};
+
+	const calculateMinutes = () => {
+		const minute = duration % 60;
+		if (minute < 10) {
+			return '0' + minute + ' ';
+		} else {
+			return minute + ' ';
+		}
+	};
 
 	return (
 		<div className='course-info'>
@@ -24,9 +43,7 @@ const CourseInfo = () => {
 			</p>
 			<p>
 				<span className='bold-text'>Duration</span>:{' '}
-				{` ${Math.trunc(duration / 60)}:${
-					duration % 60 === 0 ? '00' : duration % 60
-				} hours`}
+				{` ${calculateHours()}:${calculateMinutes()} hours`}
 			</p>
 			<p>
 				<span className='bold-text'>Created</span>:{' '}
@@ -35,9 +52,7 @@ const CourseInfo = () => {
 			<p>
 				<span className='bold-text'>Authors</span>:{' '}
 				{authors
-					.map(
-						(id) => mockedAuthorsList.find((author) => author.id === id).name
-					)
+					.map((id) => courseAuthors.find((author) => author.id === id).name)
 					.join(', ')}
 			</p>
 			<Link to='/courses'>

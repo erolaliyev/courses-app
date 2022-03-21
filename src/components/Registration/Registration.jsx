@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { registerUser } from '../../services';
+
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
@@ -17,33 +19,7 @@ const Registration = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		try {
-			const registerUser = async () => {
-				const requestOptions = {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(inputs),
-				};
-				const response = await fetch(
-					'http://localhost:3000/register',
-					requestOptions
-				);
-				const data = await response.json();
-				if (data.successful) {
-					navigate('/login');
-					localStorage.setItem('username', inputs.name);
-					return;
-				} else {
-					const errorMessage = `An error has occured: ${data.errors[0]}`;
-					throw new Error(errorMessage);
-				}
-			};
-			registerUser();
-		} catch (error) {
-			console.error('There was an error!', error);
-		}
+		registerUser(inputs).then(() => navigate('/login'));
 	};
 
 	return (

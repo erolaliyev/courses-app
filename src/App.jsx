@@ -10,6 +10,8 @@ import Login from './components/Login/Login';
 import CourseInfo from './components/CourseInfo/CourseInfo';
 import CourseForm from './components/CourseForm/CourseForm';
 
+import { PrivateRoute } from './components/PrivateRouter/PrivateRouter';
+
 const App = () => {
 	return (
 		<BrowserRouter>
@@ -29,7 +31,22 @@ const App = () => {
 				<Route path='/login' element={<Login />} />
 				<Route path='/courses' element={<Courses />} />
 				<Route path='/courses/:courseId' element={<CourseInfo />} />
-				<Route path='/courses/add' element={<CourseForm />} />
+				<Route
+					path='/courses/update/:courseId'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path='/courses/add'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);
