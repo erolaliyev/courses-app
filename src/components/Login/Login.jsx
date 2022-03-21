@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { LOG_IN } from '../../store/user/actionCreators';
+import { loginUser } from '../../services';
 
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
@@ -22,34 +23,11 @@ const Login = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		try {
-			const loginUser = async () => {
-				const requestOptions = {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(inputs),
-				};
-				const response = await fetch(
-					'http://localhost:3000/login',
-					requestOptions
-				);
-				const data = await response.json();
-				if (data.successful) {
-					localStorage.setItem('loginToken', data.result);
-					dispatch(LOG_IN({ email: inputs.email }));
-					navigate('/courses');
-					return;
-				} else {
-					const errorMessage = `An error has occured: ${data.errors[0]}`;
-					throw new Error(errorMessage);
-				}
-			};
-			loginUser();
-		} catch (error) {
-			console.error('There was an error!', error);
-		}
+		loginUser(inputs).then((data) => {
+			localStorage.setItem('loginToken', data.result);
+			dispatch(LOG_IN(data.user));
+			navigate('/courses');
+		});
 	};
 
 	return (

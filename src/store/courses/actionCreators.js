@@ -13,3 +13,10 @@ export function REMOVE_COURSE(description) {
 		payload: description,
 	};
 }
+
+export function UPDATE_COURSE(description) {
+	return {
+		type: actions.UPDATE_COURSE,
+		payload: description,
+	};
+}

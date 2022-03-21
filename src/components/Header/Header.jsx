@@ -1,23 +1,27 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { LOG_OUT } from '../../store/user/actionCreators';
+import { logoutUser } from '../../services';
 
 import Logo from './components/Logo/Logo';
 import Button from '../../common/Button/Button';
+import { getName, getRole } from '../../selectors';
 
 const Header = () => {
 	const dispatch = useDispatch();
+	const userRole = useSelector(getRole);
+	const userName = useSelector(getName);
 
 	let navigate = useNavigate();
 	let location = useLocation();
 
 	const handleClick = () => {
+		logoutUser();
 		dispatch(LOG_OUT());
 		navigate('/login');
 		localStorage.removeItem('loginToken');
-		localStorage.removeItem('username');
 	};
 
 	if (
@@ -29,11 +33,7 @@ const Header = () => {
 			<div className='header'>
 				<Logo />
 				<div className='header-user'>
-					<span>
-						{localStorage.getItem('username')
-							? localStorage.getItem('username')
-							: ''}
-					</span>
+					<span>{userName ?? (userRole === 'admin' ? 'Admin' : '')}</span>
 					<Button buttonText='Log out' onClick={handleClick} />
 				</div>
 			</div>

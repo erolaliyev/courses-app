@@ -8,7 +8,9 @@ import Courses from './components/Courses/Courses';
 import Registration from './components/Registration/Registration';
 import Login from './components/Login/Login';
 import CourseInfo from './components/CourseInfo/CourseInfo';
-import CreateCourse from './components/CreateCourse/CreateCourse';
+import CourseForm from './components/CourseForm/CourseForm';
+
+import { PrivateRoute } from './components/PrivateRouter/PrivateRouter';
 
 const App = () => {
 	return (
@@ -29,7 +31,22 @@ const App = () => {
 				<Route path='/login' element={<Login />} />
 				<Route path='/courses' element={<Courses />} />
 				<Route path='/courses/:courseId' element={<CourseInfo />} />
-				<Route path='/courses/add' element={<CreateCourse />} />
+				<Route
+					path='/courses/update/:courseId'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path='/courses/add'
+					element={
+						<PrivateRoute>
+							<CourseForm />
+						</PrivateRoute>
+					}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);

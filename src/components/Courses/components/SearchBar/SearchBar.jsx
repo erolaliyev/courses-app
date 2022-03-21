@@ -1,29 +1,33 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import Input from '../../../../common/Input/Input';
 import Button from '../../../../common/Button/Button';
-
-import { mockedCoursesList } from '../../../../constants';
+import { getCourses } from '../../../../selectors';
 
 const SearchBar = ({ filterCourseList }) => {
 	const [searchInput, setSearchInput] = useState('');
+	const courses = useSelector(getCourses);
+	// console.log(courses);
 
 	const searchItems = (event) => {
 		if (event.target.value === '') {
-			filterCourseList(mockedCoursesList);
+			filterCourseList(courses);
 		}
 		setSearchInput(event.target.value);
 	};
 
 	const filterCourses = () => {
+		// console.log(
+		// 	courses.filter((course) => {
+		// 		return course.title.toLowerCase().includes(searchInput.toLowerCase());
+		// 	})
+		// );
 		filterCourseList(
-			mockedCoursesList.filter((course) => {
-				return (
-					course.title.toLowerCase().includes(searchInput.toLowerCase()) ||
-					course.id.includes(searchInput.toLocaleLowerCase())
-				);
-			})
+			courses.filter((course) =>
+				course.title.toLowerCase().includes(searchInput.toLowerCase())
+			)
 		);
 	};
 

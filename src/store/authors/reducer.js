@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import * as actions from './actionTypes';
 
 export default function reducer(state = [], action) {
@@ -7,7 +5,7 @@ export default function reducer(state = [], action) {
 		return [
 			...state,
 			{
-				id: action.payload.id ?? uuidv4(),
+				id: action.payload.id,
 				name: action.payload.name,
 			},
 		];

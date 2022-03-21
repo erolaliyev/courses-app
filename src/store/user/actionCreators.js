@@ -12,3 +12,10 @@ export function LOG_OUT() {
 		type: actions.LOG_OUT,
 	};
 }
+
+export function SET_USER_ROLE(description) {
+	return {
+		type: actions.SET_USER_ROLE,
+		payload: description,
+	};
+}
