@@ -11,7 +11,6 @@ const CourseInfo = () => {
 	const courseAuthors = useSelector(getAuthors);
 
 	const selectedCourse = courses.find((course) => course.id === courseId);
-	console.log(selectedCourse);
 
 	let { id, title, description, creationDate, duration, authors } =
 		selectedCourse;
