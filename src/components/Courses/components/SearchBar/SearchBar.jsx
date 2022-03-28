@@ -9,7 +9,6 @@ import { getCourses } from '../../../../selectors';
 const SearchBar = ({ filterCourseList }) => {
 	const [searchInput, setSearchInput] = useState('');
 	const courses = useSelector(getCourses);
-	// console.log(courses);
 
 	const searchItems = (event) => {
 		if (event.target.value === '') {
@@ -19,11 +18,6 @@ const SearchBar = ({ filterCourseList }) => {
 	};
 
 	const filterCourses = () => {
-		// console.log(
-		// 	courses.filter((course) => {
-		// 		return course.title.toLowerCase().includes(searchInput.toLowerCase());
-		// 	})
-		// );
 		filterCourseList(
 			courses.filter((course) =>
 				course.title.toLowerCase().includes(searchInput.toLowerCase())

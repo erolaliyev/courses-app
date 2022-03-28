@@ -18,11 +18,8 @@ export function updateCourse(id, bodyParams) {
 }
 
 export function addCourse(bodyParams) {
-	console.log('it is called');
 	return function (dispatch) {
-		console.log('we are inside');
 		return createCourse(bodyParams).then((result) => {
-			console.log('inside third layer/dream');
 			dispatch(ADD_COURSE(result));
 		});
 	};

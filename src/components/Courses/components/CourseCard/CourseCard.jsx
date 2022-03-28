@@ -50,21 +50,23 @@ const CourseCard = ({
 	};
 
 	return (
-		<div className='course-card'>
+		<div className='course-card' aria-label='course-card'>
 			<div className='main-info'>
-				<h2 className='title'>{title}</h2>
-				<p>{description}</p>
+				<h2 className='title' aria-label='title'>
+					{title}
+				</h2>
+				<p aria-label='description'>{description}</p>
 			</div>
 			<div className='helper-info'>
-				<p className='author-info'>
+				<p className='author-info' aria-label='authors-info'>
 					<span className='text-info'>Authors:</span>
 					<span className='author-names'>{authors && authors.join(', ')}</span>
 				</p>
-				<p>
+				<p aria-label='duration'>
 					<span className='text-info'>Duration:</span>
 					{` ${calculateHours()}:${calculateMinutes()} hours`}
 				</p>
-				<p>
+				<p aria-label='creation-date'>
 					<span className='text-info'>Created:</span>{' '}
 					{creationDate && creationDate.replaceAll('/', '.')}
 				</p>

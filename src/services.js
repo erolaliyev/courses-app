@@ -1,212 +1,192 @@
 export async function getCoursesList() {
-	const requestOptions = {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	};
-	const response = await fetch(
-		'http://localhost:3000/courses/all',
-		requestOptions
-	);
-	const data = await response.json();
-	if (data.successful) {
+	try {
+		const requestOptions = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		const response = await fetch(
+			'http://localhost:3000/courses/all',
+			requestOptions
+		);
+		const data = await response.json();
 		return data.result;
-	} else {
-		const errorMessage = `An error has occured: ${data.result}`;
-		throw new Error(errorMessage);
+	} catch (error) {
+		console.error(error);
 	}
 }
 
 export async function getAuthorsList() {
-	const requestOptions = {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	};
-	const response = await fetch(
-		'http://localhost:3000/authors/all',
-		requestOptions
-	);
-	const data = await response.json();
-	if (data.successful) {
+	try {
+		const requestOptions = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		};
+		const response = await fetch(
+			'http://localhost:3000/authors/all',
+			requestOptions
+		);
+		const data = await response.json();
 		return data.result;
-	} else {
-		const errorMessage = `An error has occured: ${data.result}`;
-		throw new Error(errorMessage);
+	} catch (error) {
+		console.error(error);
 	}
 }
 
 export async function getCurrentUser() {
-	const requestOptions = {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: localStorage.getItem('loginToken'),
-		},
-	};
-	const response = await fetch(
-		'http://localhost:3000/users/me',
-		requestOptions
-	);
-	const data = await response.json();
-	if (data.successful) {
+	try {
+		const requestOptions = {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('loginToken'),
+			},
+		};
+		const response = await fetch(
+			'http://localhost:3000/users/me',
+			requestOptions
+		);
+		const data = await response.json();
 		return data.result;
-	} else {
-		const errorMessage = `An error has occured: ${data.result}`;
-		throw new Error(errorMessage);
+	} catch (error) {
+		console.error(error);
 	}
 }
 
 export async function deleteCourse(id) {
-	const requestOptions = {
-		method: 'DELETE',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: localStorage.getItem('loginToken'),
-		},
-	};
-	const response = await fetch(
-		'http://localhost:3000/courses/' + id,
-		requestOptions
-	);
-	console.log(response);
-	const data = await response.json();
-	console.log(data);
-	if (data.successful) {
+	try {
+		const requestOptions = {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('loginToken'),
+			},
+		};
+		const response = await fetch(
+			'http://localhost:3000/courses/' + id,
+			requestOptions
+		);
+		const data = await response.json();
 		return data.result;
-	} else {
-		const errorMessage = `An error has occured: ${data.result}`;
-		throw new Error(errorMessage);
+	} catch (error) {
+		console.error(error);
 	}
 }
 
 export async function changeCourse(id, bodyParams) {
-	const requestOptions = {
-		method: 'PUT',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: localStorage.getItem('loginToken'),
-		},
-		body: JSON.stringify(bodyParams),
-	};
-	const response = await fetch(
-		'http://localhost:3000/courses/' + id,
-		requestOptions
-	);
-	console.log(response);
-	const data = await response.json();
-	console.log(data);
-	if (data.successful) {
+	try {
+		const requestOptions = {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('loginToken'),
+			},
+			body: JSON.stringify(bodyParams),
+		};
+		const response = await fetch(
+			'http://localhost:3000/courses/' + id,
+			requestOptions
+		);
+		const data = await response.json();
 		return data.result;
-	} else {
-		const errorMessage = `An error has occured: ${data.result}`;
-		throw new Error(errorMessage);
+	} catch (error) {
+		console.error(error);
 	}
 }
 
 export async function createCourse(bodyParams) {
-	const requestOptions = {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: localStorage.getItem('loginToken'),
-		},
-		body: JSON.stringify(bodyParams),
-	};
-	const response = await fetch(
-		'http://localhost:3000/courses/add',
-		requestOptions
-	);
-	console.log(response);
-	const data = await response.json();
-	console.log(data);
-	if (data.successful) {
+	try {
+		const requestOptions = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('loginToken'),
+			},
+			body: JSON.stringify(bodyParams),
+		};
+		const response = await fetch(
+			'http://localhost:3000/courses/add',
+			requestOptions
+		);
+		const data = await response.json();
 		return data.result;
-	} else {
-		const errorMessage = `An error has occured: ${data.result}`;
-		throw new Error(errorMessage);
+	} catch (error) {
+		console.error(error);
 	}
 }
 
 export async function addAuthor(bodyParams) {
-	const requestOptions = {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: localStorage.getItem('loginToken'),
-		},
-		body: JSON.stringify(bodyParams),
-	};
-	const response = await fetch(
-		'http://localhost:3000/authors/add',
-		requestOptions
-	);
-	console.log(response);
-	const data = await response.json();
-	console.log(data);
-	if (data.successful) {
+	try {
+		const requestOptions = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('loginToken'),
+			},
+			body: JSON.stringify(bodyParams),
+		};
+		const response = await fetch(
+			'http://localhost:3000/authors/add',
+			requestOptions
+		);
+		const data = await response.json();
 		return data.result;
-	} else {
-		const errorMessage = `An error has occured: ${data.result}`;
-		throw new Error(errorMessage);
+	} catch (error) {
+		console.error(error);
 	}
 }
 
 export async function loginUser(bodyParams) {
-	const requestOptions = {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(bodyParams),
-	};
-	const response = await fetch('http://localhost:3000/login', requestOptions);
-	console.log(response);
-	const data = await response.json();
-	console.log(data);
-	if (data.successful) {
+	try {
+		const requestOptions = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(bodyParams),
+		};
+		const response = await fetch('http://localhost:3000/login', requestOptions);
+		const data = await response.json();
 		return data;
-	} else {
-		const errorMessage = `An error has occured: ${data.result}`;
-		throw new Error(errorMessage);
+	} catch (error) {
+		console.error(error);
 	}
 }
 
 export async function logoutUser() {
-	const requestOptions = {
-		method: 'DELETE',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: localStorage.getItem('loginToken'),
-		},
-	};
-	const response = await fetch('http://localhost:3000/logout', requestOptions);
-	if (!response.ok) {
-		console.log(response);
+	try {
+		const requestOptions = {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: localStorage.getItem('loginToken'),
+			},
+		};
+		await fetch('http://localhost:3000/logout', requestOptions);
+	} catch (error) {
+		console.error(error);
 	}
 }
 
 export async function registerUser(bodyParams) {
-	const requestOptions = {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(bodyParams),
-	};
-	const response = await fetch(
-		'http://localhost:3000/register',
-		requestOptions
-	);
-	console.log(response);
-	const data = await response.json();
-	console.log(data);
-	if (data.successful) {
+	try {
+		const requestOptions = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(bodyParams),
+		};
+		const response = await fetch(
+			'http://localhost:3000/register',
+			requestOptions
+		);
+		const data = await response.json();
 		return data.result;
-	} else {
-		const errorMessage = `An error has occured: ${data.result}`;
-		throw new Error(errorMessage);
+	} catch (error) {
+		console.error(error);
 	}
 }

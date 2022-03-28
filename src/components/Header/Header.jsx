@@ -33,7 +33,9 @@ const Header = () => {
 			<div className='header'>
 				<Logo />
 				<div className='header-user'>
-					<span>{userName ?? (userRole === 'admin' ? 'Admin' : '')}</span>
+					<span aria-label='username'>
+						{userName ?? (userRole === 'admin' ? 'Admin' : '')}
+					</span>
 					<Button buttonText='Log out' onClick={handleClick} />
 				</div>
 			</div>

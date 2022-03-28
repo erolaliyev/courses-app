@@ -17,9 +17,7 @@ import { getAuthors, getCourses, getRole } from '../../selectors';
 const Courses = () => {
 	const dispatch = useDispatch();
 
-	// console.log(courses);
 	const [filteredCourses, setFilteredCourses] = useState([]);
-	// console.log(filteredCourses);
 
 	const filterCourseList = (updatedCourseList) => {
 		setFilteredCourses(updatedCourseList);
@@ -44,6 +42,7 @@ const Courses = () => {
 			}
 		});
 	}, [dispatch]);
+
 	useEffect(() => {
 		dispatch(getUserRole());
 	}, [dispatch]);
