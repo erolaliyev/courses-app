@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, useParams } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import CourseForm from '../CourseForm';
 
 test('should display input for title ', async () => {
