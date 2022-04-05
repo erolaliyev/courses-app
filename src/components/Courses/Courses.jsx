@@ -12,7 +12,7 @@ import Button from '../../common/Button/Button';
 
 import { getCoursesList, getAuthorsList } from '../../services';
 import { getUserRole } from '../../store/user/thunk';
-import { getAuthors, getCourses, getRole } from '../../selectors';
+import { getAuthors, getCourses, getRole, getToken } from '../../selectors';
 
 const Courses = () => {
 	const dispatch = useDispatch();
@@ -26,6 +26,7 @@ const Courses = () => {
 	const courses = useSelector(getCourses);
 	const authors = useSelector(getAuthors);
 	const userRole = useSelector(getRole);
+	const userToken = useSelector(getToken);
 
 	useEffect(() => {
 		getCoursesList().then((result) => {
@@ -44,8 +45,8 @@ const Courses = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		dispatch(getUserRole());
-	}, [dispatch]);
+		dispatch(getUserRole(userToken));
+	}, [dispatch, userToken]);
 
 	useEffect(() => setFilteredCourses(courses), [courses]);
 

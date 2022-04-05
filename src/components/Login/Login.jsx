@@ -24,7 +24,7 @@ const Login = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		loginUser(inputs).then((data) => {
-			localStorage.setItem('loginToken', data.result);
+			data.user.token = data.result;
 			dispatch(LOG_IN(data.user));
 			navigate('/courses');
 		});

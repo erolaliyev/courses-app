@@ -6,13 +6,14 @@ import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 import { createAuthor } from '../../store/authors/thunk';
 import { updateCourse, addCourse } from '../../store/courses/thunk';
-import { getAuthors, getCourses } from '../../selectors';
+import { getAuthors, getCourses, getToken } from '../../selectors';
 
 const CourseForm = () => {
 	const dispatch = useDispatch();
 	const { courseId } = useParams();
 	const allAuthors = useSelector(getAuthors);
 	const courses = useSelector(getCourses);
+	const userToken = useSelector(getToken);
 
 	function findCourse() {
 		return courses.filter((course) => course.id === courseId)[0];
@@ -83,7 +84,7 @@ const CourseForm = () => {
 		} else {
 			setAuthorsList([...authorsList, customAuthor]);
 			setcustomAuthor('');
-			dispatch(createAuthor(customAuthor));
+			dispatch(createAuthor(userToken, customAuthor));
 		}
 	};
 
@@ -134,7 +135,7 @@ const CourseForm = () => {
 			alert('Please, add an author');
 		} else if (courseId) {
 			dispatch(
-				updateCourse(courseId, {
+				updateCourse(userToken, courseId, {
 					title: courseTitle,
 					description: courseDescription,
 					duration: +courseDuration,
@@ -146,7 +147,7 @@ const CourseForm = () => {
 			navigate('/courses');
 		} else {
 			dispatch(
-				addCourse({
+				addCourse(userToken, {
 					title: courseTitle,
 					description: courseDescription,
 					duration: +courseDuration,

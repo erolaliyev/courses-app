@@ -7,25 +7,26 @@ import { logoutUser } from '../../services';
 
 import Logo from './components/Logo/Logo';
 import Button from '../../common/Button/Button';
-import { getName, getRole } from '../../selectors';
+import { getName, getRole, getToken } from '../../selectors';
+import store from '../../store';
 
 const Header = () => {
 	const dispatch = useDispatch();
 	const userRole = useSelector(getRole);
 	const userName = useSelector(getName);
+	const userToken = useSelector(getToken);
 
 	let navigate = useNavigate();
 	let location = useLocation();
 
 	const handleClick = () => {
-		logoutUser();
+		logoutUser(userToken);
 		dispatch(LOG_OUT());
 		navigate('/login');
-		localStorage.removeItem('loginToken');
 	};
 
 	if (
-		localStorage.getItem('loginToken') &&
+		userToken !== '' &&
 		location.pathname !== '/Login' &&
 		location.pathname !== '/registration'
 	) {

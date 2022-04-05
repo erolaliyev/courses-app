@@ -1,25 +1,25 @@
 import { deleteCourse, changeCourse, createCourse } from '../../services';
 import { REMOVE_COURSE, UPDATE_COURSE, ADD_COURSE } from './actionCreators';
 
-export function removeCourse(id) {
+export function removeCourse(id, token) {
 	return function (dispatch) {
-		return deleteCourse(id).then(() => {
+		return deleteCourse(id, token).then(() => {
 			dispatch(REMOVE_COURSE({ id }));
 		});
 	};
 }
 
-export function updateCourse(id, bodyParams) {
+export function updateCourse(token, id, bodyParams) {
 	return function (dispatch) {
-		return changeCourse(id, bodyParams).then((result) => {
+		return changeCourse(token, id, bodyParams).then((result) => {
 			dispatch(UPDATE_COURSE(result));
 		});
 	};
 }
 
-export function addCourse(bodyParams) {
+export function addCourse(token, bodyParams) {
 	return function (dispatch) {
-		return createCourse(bodyParams).then((result) => {
+		return createCourse(token, bodyParams).then((result) => {
 			dispatch(ADD_COURSE(result));
 		});
 	};

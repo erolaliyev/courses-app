@@ -70,13 +70,9 @@ test('should render user name', async () => {
 		);
 	};
 
-	localStorage.setItem('loginToken', 'Token');
-
 	render(<MockHeader />);
 	const spanElement = screen.getByText('Test User');
 	expect(spanElement).toBeInTheDocument();
-
-	localStorage.removeItem('loginToken');
 });
 
 test('should render admin', async () => {
@@ -107,14 +103,10 @@ test('should render admin', async () => {
 		);
 	};
 
-	localStorage.setItem('loginToken', 'Token');
-
 	render(<MockHeader />);
 	const username = screen.getByLabelText('username');
 	screen.debug(username);
 	expect(username).toHaveTextContent('Admin');
-
-	localStorage.removeItem('loginToken');
 });
 
 test('should render button', async () => {
@@ -145,13 +137,9 @@ test('should render button', async () => {
 		);
 	};
 
-	localStorage.setItem('loginToken', 'Token');
-
 	render(<MockHeader />);
 	const buttonElement = screen.getByRole('button');
 	expect(buttonElement).toBeInTheDocument();
-
-	localStorage.removeItem('loginToken');
 });
 
 test('should button click log out user', async () => {
@@ -181,8 +169,6 @@ test('should button click log out user', async () => {
 			</Provider>
 		);
 	};
-
-	localStorage.setItem('loginToken', 'Token');
 
 	render(<MockHeader />);
 	const buttonElement = screen.getByRole('button');
@@ -218,46 +204,8 @@ test('should button click navigate to login', async () => {
 		);
 	};
 
-	localStorage.setItem('loginToken', 'Token');
-
 	render(<MockHeader />);
-	const buttonElement = screen.getByRole('button');
+	const buttonElement = screen.getByRole('button', { name: 'Log out' });
 	fireEvent.click(buttonElement);
 	expect(window.location.pathname).toBe('/login');
-});
-
-test('should button click clear localStorage', async () => {
-	const mockedState = {
-		user: {
-			isAuth: true,
-			name: 'Test User',
-			email: 'test@email.com',
-			token: 'token',
-			role: 'user',
-		},
-		courses: [],
-		authors: [],
-	};
-	const mockedStore = {
-		getState: () => mockedState,
-		subscribe: jest.fn(),
-		dispatch: jest.fn(),
-	};
-
-	const MockHeader = () => {
-		return (
-			<Provider store={mockedStore}>
-				<BrowserRouter>
-					<Header />
-				</BrowserRouter>
-			</Provider>
-		);
-	};
-
-	localStorage.setItem('loginToken', 'Token');
-
-	render(<MockHeader />);
-	const buttonElement = screen.getByRole('button');
-	fireEvent.click(buttonElement);
-	expect(localStorage.getItem('loginToken')).toBe(null);
 });

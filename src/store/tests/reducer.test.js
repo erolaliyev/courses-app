@@ -20,11 +20,12 @@ test('should handle LOG_IN', () => {
 		token: '',
 		role: '',
 	};
-	localStorage.setItem('loginToken', 'Bearer');
+
 	const LOG_IN = {
 		type: 'LOG_IN',
-		payload: { name: 'user', email: 'user@email.com' },
+		payload: { name: 'user', email: 'user@email.com', token: 'Bearer' },
 	};
+
 	expect(userReducer(previousState, LOG_IN)).toEqual({
 		isAuth: true,
 		name: 'user',
@@ -32,7 +33,6 @@ test('should handle LOG_IN', () => {
 		token: 'Bearer',
 		role: '',
 	});
-	localStorage.removeItem('loginToken');
 });
 
 test('should handle LOG_OUT', () => {

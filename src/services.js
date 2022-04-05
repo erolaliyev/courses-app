@@ -36,13 +36,13 @@ export async function getAuthorsList() {
 	}
 }
 
-export async function getCurrentUser() {
+export async function getCurrentUser(loginToken) {
 	try {
 		const requestOptions = {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: localStorage.getItem('loginToken'),
+				Authorization: loginToken,
 			},
 		};
 		const response = await fetch(
@@ -56,13 +56,13 @@ export async function getCurrentUser() {
 	}
 }
 
-export async function deleteCourse(id) {
+export async function deleteCourse(id, loginToken) {
 	try {
 		const requestOptions = {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: localStorage.getItem('loginToken'),
+				Authorization: loginToken,
 			},
 		};
 		const response = await fetch(
@@ -76,13 +76,13 @@ export async function deleteCourse(id) {
 	}
 }
 
-export async function changeCourse(id, bodyParams) {
+export async function changeCourse(loginToken, id, bodyParams) {
 	try {
 		const requestOptions = {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: localStorage.getItem('loginToken'),
+				Authorization: loginToken,
 			},
 			body: JSON.stringify(bodyParams),
 		};
@@ -97,13 +97,13 @@ export async function changeCourse(id, bodyParams) {
 	}
 }
 
-export async function createCourse(bodyParams) {
+export async function createCourse(loginToken, bodyParams) {
 	try {
 		const requestOptions = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: localStorage.getItem('loginToken'),
+				Authorization: loginToken,
 			},
 			body: JSON.stringify(bodyParams),
 		};
@@ -118,13 +118,13 @@ export async function createCourse(bodyParams) {
 	}
 }
 
-export async function addAuthor(bodyParams) {
+export async function addAuthor(loginToken, bodyParams) {
 	try {
 		const requestOptions = {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: localStorage.getItem('loginToken'),
+				Authorization: loginToken,
 			},
 			body: JSON.stringify(bodyParams),
 		};
@@ -156,13 +156,13 @@ export async function loginUser(bodyParams) {
 	}
 }
 
-export async function logoutUser() {
+export async function logoutUser(loginToken) {
 	try {
 		const requestOptions = {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: localStorage.getItem('loginToken'),
+				Authorization: loginToken,
 			},
 		};
 		await fetch('http://localhost:3000/logout', requestOptions);

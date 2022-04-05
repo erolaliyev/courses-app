@@ -10,12 +10,13 @@ export default function reducer(
 			isAuth: true,
 			name: action.payload.name,
 			email: action.payload.email,
-			token: localStorage.getItem('loginToken'),
+			token: action.payload.token,
 		};
 	} else if (action.type === actions.LOG_OUT) {
 		return {
 			...state,
 			isAuth: false,
+			token: '',
 		};
 	} else if (action.type === actions.SET_USER_ROLE) {
 		return {

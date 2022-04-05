@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../../common/Button/Button';
 import { removeCourse } from '../../../../store/courses/thunk';
-import { getRole } from '../../../../selectors';
+import { getRole, getToken } from '../../../../selectors';
 
 const CourseCard = ({
 	id,
@@ -18,13 +18,14 @@ const CourseCard = ({
 	const dispatch = useDispatch();
 	let navigate = useNavigate();
 	const userRole = useSelector(getRole);
+	const userToken = useSelector(getToken);
 
 	const handleUpdate = () => {
 		navigate('/courses/update/' + id);
 	};
 
 	const handleDelete = () => {
-		dispatch(removeCourse(id));
+		dispatch(removeCourse(id, userToken));
 	};
 
 	const handleShowCourse = () => {
