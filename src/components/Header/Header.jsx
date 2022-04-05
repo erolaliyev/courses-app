@@ -8,7 +8,6 @@ import { logoutUser } from '../../services';
 import Logo from './components/Logo/Logo';
 import Button from '../../common/Button/Button';
 import { getName, getRole, getToken } from '../../selectors';
-import store from '../../store';
 
 const Header = () => {
 	const dispatch = useDispatch();
